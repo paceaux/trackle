@@ -1,0 +1,49 @@
+  /* ====================
+    OBJECT: field, controls
+    
+==================== */
+
+
+  /* === fields ===
+    __label
+    __input
+
+    --required
+    --label-inline
+*/
+.field {
+    display: inline-grid;
+    grid-template-rows: calc(var(--formBaseTextSize) * 1.25) 1fr;
+    grid-template-columns: 1fr;
+    grid-template-areas: "label" "input";
+    grid-gap: .618em;
+    margin: 0 .618em;
+}
+
+.field--label-inline {
+    grid-template-columns: auto 1fr;
+    grid-template-areas: "label input";
+}
+
+.field:focus-within {
+    --controlGroupColor: var(--fieldsColorActive);
+}
+
+.field__label {
+    padding-left: 0;
+    grid-area: label;
+}
+
+.field:focus-within .field__label {
+    text-decoration: underline;
+    text-decoration-color: var(--fieldsColorActive);
+}
+
+.field--required .field__label::after {
+    content: '*';
+    color: hsl(0, 70%, 50%);
+}
+
+.field__input {
+    grid-area: input;
+}

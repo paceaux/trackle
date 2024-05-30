@@ -1,0 +1,22 @@
+{
+    "extends": "airbnb-base",
+    "rules": {
+        "indent": [
+            "warn",
+            4
+        ],
+        "arrow-parens": "off"
+    },
+    "parserOptions": {
+        "ecmaVersion": 2023
+    },
+    "globals": {
+        "document": true,
+        "localStorage": true,
+        "navigator": true,
+        "window": true,
+        "HTMLElement": true,
+        "FormData": true,
+        "customElements": true
+    }
+}

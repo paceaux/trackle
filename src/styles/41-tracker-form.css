@@ -1,0 +1,14 @@
+  /* ====================
+    COMPONENT: health-tracker
+==================== */
+.health-tracker {
+    --fieldsColorActive: hsl(150deg, 70%, 50%);
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    column-gap: .618rem;
+}
+
+

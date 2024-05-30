@@ -1,0 +1,52 @@
+{
+  "name": "trackle",
+  "version": "1.0.0",
+  "description": "An offline-first personal health tracking app",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rm -rf public/*",
+    "test": "npm run lint",
+    "scripts:lint": "eslint src/scripts/**/*.js -f table  && eslint src/scripts/**/*.js -o reports/js.lint.txt",
+    "scripts:lint:fix": "eslint src/scripts/**/*.js --fix",
+    "scripts:rollup": "rollup -c rollup.config.js --bundleConfigAsCjs",
+    "styles:lint": "stylelint src/styles/**/*.css",
+    "styles:lint:fix": "stylelint src/styles/**/*.css --fix",
+    "styles:build": "postcss src/styles/main.css -o public/main.css",
+    "html:copy": "copyfiles -u 2 src/pages/*.html public",
+    "lint": "npm run scripts:lint && npm run styles:lint",
+    "build": "concurrently \"npm run scripts:rollup\" \"npm run styles:build\" \"npm run html:copy\"",
+    "start": "http-server public -p 9292 -o"
+  },
+  "browserslist": [
+    "> 5%"
+  ],
+  "author": "",
+  "license": "Hippocratic-2.1",
+  "devDependencies": {
+    "@lopatnov/rollup-plugin-uglify": "^2.1.5",
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "concurrently": "^8.2.2",
+    "copyfiles": "^2.4.1",
+    "cssnano": "^7.0.1",
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-formatter-table": "^7.32.1",
+    "http-server": "^14.1.1",
+    "postcss": "^8.4.38",
+    "postcss-cli": "^11.0.0",
+    "postcss-cssnext": "^3.1.1",
+    "postcss-import": "^16.1.0",
+    "rollup-plugin-node-builtins": "^2.1.2",
+    "rollup-plugin-node-globals": "^1.4.0",
+    "stylelint": "^16.6.1",
+    "stylelint-config-standard": "^36.0.0",
+    "stylelint-order": "^6.0.4"
+  },
+  "dependencies": {
+    "form-baseline.css": "^2.0.0",
+    "normalize.css": "^8.0.1",
+    "table-baseline.css": "^2.1.0",
+    "typography-baseline.css": "^5.0.0"
+  }
+}

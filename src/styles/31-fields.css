@@ -1,0 +1,55 @@
+  /* ====================
+    OBJECTS: fields
+    
+==================== */
+
+
+  /* === fields ===
+    __title
+
+    --isCollapsed
+    --meta
+    --health
+    --activities
+    --consumption
+*/
+.fields,
+.fields * {
+    transition: all .3s ease-in-out;
+}
+
+.fields {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    max-height: 100vh;
+}
+
+.fields--isCollapsed {
+    flex-grow:0;
+    max-height: 2vh;
+
+}
+
+.fields--isCollapsed .field {
+    display: none;
+}
+
+.fields:focus-within {
+    --controlGroupBorderColor: var(--fieldsColorActive);
+}
+
+.fields:focus-within .fields__title {
+    --controlGroupBackgroundColor: var(--fieldsColorActive);
+    --controlGroupColor: #fff;
+}
+
+
+.controls {
+    --controlGroupBorderWidth: 0px;
+    --controlBackgroundColor: hsl(150, 70%, 50%);
+    --controlBorderColor: hsl(150, 70%, 30%);
+    --controlColor: hsl(150, 90%, 15%);
+
+    width: 100%;
+}

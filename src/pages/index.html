@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
+    <title>Track your stuff</title>
+</head>
+<body>
+    <header class="g-header">
+        <h1 class="g-header__title">Track yourself</h1>
+    </header>
+    <main>
+        <form class="health-tracker js-health-tracker">
+            <!-- namespace: meta-->
+            <fieldset class="fields fields--meta">
+                <legend class="fields__title">Info</legend>
+                <div class="field field--required">
+                    <label for="meta-date" class="field__label">Date</label>
+                    <input id="meta-date" name="meta-date" class="field__input" type="date" required>
+                </div>
+            </fieldset>
+            <!-- namespace: health-->
+            <fieldset class="fields fields--health">
+                <legend class="fields__title">Health</legend>
+                <div class="field">
+                    <label for="health-bmi" class="field__label">BMI</label>
+                    <input id="health-bmi" name="health-bmi" class="field__input" type="number" step=".1" min="5" max="30"/>
+                </div>
+                <div class="field">
+                    <label for="health-weight" class="field__label">Weight</label>
+                    <input id="health-weight" name="health-weight" class="field__input" type="number" step=".1" min="130" max="170"/>
+                </div>
+                <div class="field">
+                    <label for="health-water" class="field__label">Water</label>
+                    <input id="health-water" name="health-water" class="field__input" type="number" step=".1" min="0" max="100"/>
+                </div>
+                <div class="field">
+                    <label for="health-muscle" class="field__label">Muscle</label>
+                    <input id="health-muscle" name="health-muscle" class="field__input" type="number" step=".1" min="0" max="100"/>
+                </div>
+            </fieldset>
+            <!-- namespace: activities-->
+            <fieldset class="fields fields--activities">
+                <legend class="fields__title">activities</legend>
+                <div class="field">
+                    <label for="activities-duration" class="field__label"> Duration (minutes)</label>
+                    <input id="activities-duration" name="activities-duration" class="field__input" type="number" step="1" min="0" max="360"/>
+                </div>
+                <div class="field">
+                    <label for="activities-miles" class="field__label">Miles Run / Walked / Jogged</label>
+                    <input id="activities-miles" name="activities-miles" class="field__input" type="number" step=".01" min="0" max="52"/>
+                </div>
+            </fieldset>
+            <!-- namespace: consumption-->
+            <fieldset class="fields fields--consumption">
+                <legend class="fields__title">Consumption</legend>
+                <div class="field">
+                    <label for="consumption-calories" class="field__label">Calories</label>
+                    <input id="consumption-calories" name="consumption-calories" class="field__input" type="number" step="100" min="0" max="10000"/>
+                </div>
+                <div class="field">
+                    <label for="consumption-alcohol" class="field__label">Alcoholic beverages</label>
+                    <input id="consumption-alcohol" name="consumption-alcohol" class="field__input" type="number" step="1" min="0" max="20"/>
+                </div>
+                <div class="field">
+                    <label for="consumption-caffeine" class="field__label">Caffeinated drinks</label>
+                    <input id="consumption-caffeine" name="consumption-caffeine" class="field__input" type="number" step="1" min="0" max="20"/>
+                </div>
+                <div class="field">
+                    <label for="consumption-nicotine" class="field__label">Nicotine</label>
+                    <input id="consumption-nicotine" name="consumption-nicotine" class="field__input" type="number" step="1" min="0" max="20"/>
+                </div>
+            </fieldset>
+            <fieldset class="controls">
+                <button class="controls__control control health-tracker__submit" type="submit">Save</button>
+                <button class="controls__control control health-tracker__reset" type="reset">Reset</button>
+                <!-- when someone clicks "edit" in the table, this value changes-->
+                <input type="hidden" name="isEditing" value="false">
+            </fieldset>
+        </form>
+        <output class="results">
+            <!-- the tables! 
+                Each of these corresponds to a table made in IndexedDB
+                type: the name of the table in IndexedDB
+                columns: the columns that should be shown. The order matters. Theoretically shouldl be able to autogen the thead
+                        Note: The thead isn't autogenerated b/c I like having cols and colgroups
+            
+            -->
+            <tracker-table class="results__trackerTable" data-table="health" columns="date,bmi,weight,water,muscle" type="health">
+                <table>
+                    <caption>Health</caption>
+                    <colgroup class="cols cols--meta">
+                        <col />
+                    </colgroup>
+                    <colgroup class="cols cols__health">
+                        <col />
+                        <col />
+                        <col />
+                        <col />
+                    </colgroup>
+                    <colgroup class="cols cols--edit">
+                        <col />
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th id="health-date">Date</th>
+                            <th id="health-bmi">BMI</th>
+                            <th id="health-weight">Weight</th>
+                            <th id="health-water">Water</th>
+                            <th id="health-muscle">Muscle</th>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Date</th>
+                            <th>BMI</th>
+                            <th>Weight</th>
+                            <th>Water</th>
+                            <th>Muscle</th>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </tracker-table>
+            <tracker-table class="results__trackerTable" data-table="activities" columns="date,duration,miles" type="activities">
+            <table>
+                <caption>Activities</caption>
+                <colgroup class="cols cols--meta">
+                    <col />
+                </colgroup>
+                <colgroup class="cols cols__activities">
+                    <col />
+                    <col />
+                </colgroup>
+                <colgroup class="cols cols--edit">
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Duration</th>
+                        <th>Miles</th>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Date</th>
+                        <th>Duration</th>
+                        <th>Miles</th>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+            </tracker-table>
+            <tracker-table class="results__trackerTable" data-table="consumption" columns="date,calories,caffeine,alcohol,nicotine" type="consumption">
+                <table>
+                    <caption>Consumption</caption>
+                    <colgroup class="cols cols--meta">
+                        <col />
+                    </colgroup>
+                    <colgroup class="cols cols__food">
+                        <col />
+                    </colgroup>
+                    <colgroup class="cols cols__substances">
+                        <col />
+                        <col />
+                        <col />
+                        <col />
+                    </colgroup>
+                    <colgroup class="cols cols--edit">
+                        <col />
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>calories</th>
+                            <th>Caffeine</th>
+                            <th>alcohol</th>
+                            <th>nicotine</th>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Date</th>
+                            <th>calories</th>
+                            <th>Caffeine</th>
+                            <th>alcohol</th>
+                            <th>nicotine</th>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </tracker-table>
+        </output>
+    </main>
+    <footer class="g-footer">
+        <small class="g-footer__legal">Copyright and all rights reserved</small>
+    </footer>
+    <script src="main.min.js"></script>
+</body>
+</html>
