@@ -4,6 +4,7 @@
     "stylelint-order"
   ],
   "rules": {
+    "import-notation": "string",
     "function-name-case": null,
     "custom-property-pattern": null,
     "at-rule-empty-line-before": null,
