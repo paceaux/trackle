@@ -47,9 +47,9 @@
 
 .controls {
     --controlGroupBorderWidth: 0px;
-    --controlBackgroundColor: hsl(150, 70%, 50%);
-    --controlBorderColor: hsl(150, 70%, 30%);
-    --controlColor: hsl(150, 90%, 15%);
+    --controlBackgroundColor: hsl(150deg, 70%, 50%);
+    --controlBorderColor: hsl(150deg, 70%, 30%);
+    --controlColor: hsl(150deg, 90%, 15%);
 
 }
 
