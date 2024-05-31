@@ -96,6 +96,76 @@ export default class TrackerForm {
     }
 
     /**
+     * @description Get the form data as a Blob
+     * @returns {Blob}
+     */
+    async getDataAsBlob() {
+        try {
+            const allData = await this.storage.getAllTableData();
+            const data = JSON.stringify(allData, null, 2);
+            return new Blob([data], { type: 'application/json' });
+        } catch (saveDataError) {
+            throw new Error('Error saving data', saveDataError);
+        }
+    }
+
+    /**
+     * @description Get the file save handler
+     * @param  {string} [fileName='trackle-data.json'] filename to use
+     * @param  {string} [folder='downloads'] where the file is downloaded
+     * @returns {FileSystemFileHandle}
+     */
+    static async getFileSaveHandler(fileName = 'trackle-data.json', folder = 'downloads') {
+        const handle = await window.showSaveFilePicker({
+            startIn: folder,
+            suggestedName: fileName,
+            types: [
+                {
+                    description: 'JSON',
+                    accept: {
+                        'application/json': ['.json'],
+                    },
+                },
+            ],
+        });
+        return handle;
+    }
+
+    /**
+     * @param  {Blob} blob - The data to export
+     * @param  {FileSystemHandle} handle - The handle that the blob will be written on to
+     * @returns {Promise<void>}
+     */
+    static async exportBlob(blob, handle) {
+        if (!handle || !blob) {
+            throw new Error('Missing blob or handle');
+        }
+        try {
+            const writableStream = await handle.createWritable();
+            await writableStream.write(blob);
+            await writableStream.close();
+        } catch (exportError) {
+            throw new Error('Error exporting data', exportError);
+        }
+    }
+
+    /**
+     * @description Handler for downloading data
+     * @param  {Event} event
+     */
+    async handleExport(event) {
+        event.preventDefault();
+        try {
+            const blob = await this.getDataAsBlob();
+            const handle = await TrackerForm.getFileSaveHandler('trackle-data.json', 'downloads');
+            await TrackerForm.exportBlob(blob, handle);
+        } catch (exportError) {
+            // eslint-disable-next-line no-console
+            console.error('Error exporting data', exportError);
+        }
+    }
+
+    /**
      * @description Resets the form
      * @returns {void}
     */
@@ -108,6 +178,8 @@ export default class TrackerForm {
      * @returns {void}
     */
     bindEvents() {
+        const exportButton = this.form.querySelector('.js-export');
+
         this.form.addEventListener('submit', async (event) => this.handleSubmit(event));
         this.form.addEventListener('reset', (event) => { this.handleReset(event); });
         this.form.querySelectorAll('.fields__title').forEach((fieldTitle) => {
@@ -117,6 +189,7 @@ export default class TrackerForm {
                 parent.classList.toggle('fields--isCollapsed');
             });
         });
+        exportButton.addEventListener('click', async (event) => this.handleExport(event));
     }
 
     /**
