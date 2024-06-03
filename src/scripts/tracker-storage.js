@@ -154,6 +154,28 @@ export default class TrackerStorage {
     }
 
     /**
+     * @description Get all data from all tables
+     * @returns {Promise<Object>} Object with keys for each table, and arrays for values
+     */
+    async getAllTableData() {
+        try {
+            const healthData = await this.getTableData('health');
+            const activitiesData = await this.getTableData('activities');
+            const consumptionData = await this.getTableData('consumption');
+
+            const data = {
+                health: healthData,
+                activities: activitiesData,
+                consumption: consumptionData,
+            };
+
+            return data;
+        } catch (tableError) {
+            throw new Error('Error getting table data', tableError);
+        }
+    }
+
+    /**
      * @description Update data in the database
      * @param  {Object} updateData data to update
      * @param  {string} [table='health'] name of the table

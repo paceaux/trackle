@@ -41,7 +41,7 @@
 
 .field--required .field__label::after {
     content: '*';
-    color: hsl(0, 70%, 50%);
+    color: hsl(0deg, 70%, 50%);
 }
 
 .field__input {

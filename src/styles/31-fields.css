@@ -47,9 +47,21 @@
 
 .controls {
     --controlGroupBorderWidth: 0px;
-    --controlBackgroundColor: hsl(150, 70%, 50%);
-    --controlBorderColor: hsl(150, 70%, 30%);
-    --controlColor: hsl(150, 90%, 15%);
+    --controlBackgroundColor: hsl(150deg, 70%, 50%);
+    --controlBorderColor: hsl(150deg, 70%, 30%);
+    --controlColor: hsl(150deg, 90%, 15%);
 
-    width: 100%;
+}
+
+.control--primary {
+    --formControlSize: 1.2em;
+}
+
+.control--secondary {
+    --formControlSize: .8em;
+    --controlBackgroundColor: hsl(226deg, 41%, 55%);
+    --controlBorderColor: hsl(226deg, 41%, 45%);
+    --controlColor: hsl(227deg, 100%, 100%);
+
+    margin: .3em .618rem .3em 1.168rem;
 }

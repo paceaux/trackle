@@ -73,8 +73,10 @@
                 </div>
             </fieldset>
             <fieldset class="controls">
-                <button class="controls__control control health-tracker__submit" type="submit">Save</button>
-                <button class="controls__control control health-tracker__reset" type="reset">Reset</button>
+                <button class="controls__control control control--primary health-tracker__submit" type="submit">Save</button>
+                <button class="controls__control control control--primary health-tracker__reset" type="reset">Reset</button>
+
+                <button class="controls__control control control--secondary health-tracker__export js-export">Export Your Data</button>
                 <!-- when someone clicks "edit" in the table, this value changes-->
                 <input type="hidden" name="isEditing" value="false">
             </fieldset>
